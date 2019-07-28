@@ -1,0 +1,52 @@
+{% extends "groups/group_base.html" %}
+
+{% block pregroup %}
+<div class="col-md-4">
+    <h1>{{group.name}}</h1>
+    <h2> Member Count: {{group.members.count}}</h2>
+
+    <div class="content">
+        {% if user in group.members.all %}
+        <a href="{% url 'groups:leave' slug=group.slug %}" class="btn btn-lg btn-warning"><span
+                class="fa fa-times-circle-o"></span> Leave</a>
+        {% else %}
+        <a href="{% url 'groups:join' slug=group.slug %}" class="btn btn-lg btn-warning"><span
+                class="fa fa-check-circle-o"></span> Join</a>
+        {% endif %}
+
+    </div>
+</div>
+{% endblock %}
+
+{% block group_content %}
+
+<div class="col-md-8">
+
+    {% if group.get_is_chart %}
+    <!-- <img class="img-fluid" src=" {% url 'stocks:stock_exchange_company' company=group.grouptype %}" alt="Grafico"> -->
+    <img class="img-fluid" src=" {% url 'stocks:stock_exchange_company' company=group.grouptype %}"
+        alt="Stock Value Chart">
+    {% endif %}
+    {% if group.get_is_info %}
+    <div class="d-flex">
+        <iframe class="embed-responsive-item" scrolling="no" frameborder='0' style="width: 100%"
+            onload="resizeIframe(this)" src="{% url 'stocks:company' company=group.grouptype %}"></iframe>
+    </div>
+    {% endif %}
+    {% if group.grouptype == 'DJC' %}
+    <div class="d-flex">
+        <iframe class="embed-responsive-item" scrolling="no" frameborder='0' style="width: 100%"
+            onload="resizeIframe(this)" src="{% url 'stocks:dow_jones_30' %}"></iframe>
+    </div>
+    {% endif %}
+    {% if group.grouptype == 'BVC' %}
+    <img class="img-fluid" src=" {% url 'stocks:crypto' %}" alt="Grafico">
+    {% endif %}
+
+    {% for post in group.posts.all %}
+    {% include "posts/_post.html" %}
+    {% empty %}
+    <h2>No posts in this group yet!</h2>
+    {% endfor %}
+</div>
+{% endblock %}

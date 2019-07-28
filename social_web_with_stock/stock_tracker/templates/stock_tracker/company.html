@@ -1,0 +1,28 @@
+{% extends 'stock_tracker/stocks_base.html' %}
+{% load humanize %}
+{% block content %}
+<div class="card" style="width: 99%;">
+    <div class="card-body">
+        <h5 class="card-title">{{ company.name }}</h5>
+        <p class="card-text">{{company.short_description}}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <h5>CEO:</h5> {{ company.ceo }}
+        </li>
+        <li class="list-group-item">
+            <h5>Legal name:</h5>{{ company.legal_name }}
+        </li>
+        <li class="list-group-item">
+            <h5>Market:</h5> {{ company.stock_exchange }}
+        </li>
+        <li class="list-group-item">
+            <h5>Employees:</h5> {{ company.employees|intcomma }}
+        </li>
+    </ul>
+    <div class="card-body">
+        <h5>Web page:</h5>
+        <a href="http://{{ company.company_url }}" target="_blank" class="card-link">{{ company.name }} Web </a>
+    </div>
+</div>
+{% endblock %}
