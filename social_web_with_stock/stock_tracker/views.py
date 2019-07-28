@@ -12,7 +12,7 @@ import io
 import intrinio_sdk
 from intrinio_sdk.rest import ApiException
 
-my_api_key = 'OjFmMTMwYzVlNWE2M2ZhYTkzNDdhMWE4NGIzNGQ5NTY1'
+my_api_key = YOUR API KEY HERE
 intrinio_sdk.ApiClient().configuration.api_key['api_key'] = my_api_key
 
 
